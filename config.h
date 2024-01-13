@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 7;        /* gaps between windows */
+static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -41,8 +41,8 @@ static const int attachbelow = 1;    /* 1 means attach after the currently activ
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "",      tile },    /* first entry is default */
+	{ "󱂬",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
 
@@ -66,17 +66,25 @@ static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34
 NULL };
 static const char *powermenu[] = { "powermenu", NULL };
 static const char *browser[] = { "firefox", NULL };
-
+static const char *spotify[] = { "spotify", NULL };
+static const char *wifimenu[] = { "wifimenu", NULL };
+static const char *clipmenu[] = { "clipmenu", NULL };
+#include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,             		XK_p,      spawn,          {.v = powermenu } },
 	{ MODKEY,                       XK_b,      spawn,          {.v = browser } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = spotify } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = clipmenu } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = wifimenu } },
 	{ MODKEY,                       XK_colon,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+        { MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_n,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
